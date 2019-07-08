@@ -13,24 +13,25 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
-import Auth from 'services/auth'
+import Auth from 'services/auth';
+import { Link as RouteLink } from 'react-router-dom';
 
 export default function LoginForm(props) {
   const classes = MaterialInputForm.useStyles();
-  document.title = "Login";  
+  document.title = 'Login';
 
   const [usernameField, setUsernameField] = useState({
     value: '',
-    error: '', 
+    error: '',
     isError: false
   });
-  
+
   const [passwordField, setPasswordField] = useState({
-    value: '', 
-    error: '', 
+    value: '',
+    error: '',
     isError: false
-  })
-  
+  });
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -89,14 +90,12 @@ export default function LoginForm(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="/ResetPassword" variant="body2">
+              <Link to="/ResetPassword" variant="body2" component={RouteLink}>
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="/Register" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Link to="/Register" variant="body2" component={RouteLink}> Register</Link>
             </Grid>
           </Grid>
         </form>

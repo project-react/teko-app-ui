@@ -47,15 +47,15 @@ export default function RegisterForm(props) {
         'password': passwordField.value
       }
       console.log(data); 
-      // Auth.register(data)
-      // .then(res => {
-      //   console.log('register success!!!'); 
-      //   console.log(res);
-      // })
-      // .catch(err => {
-      //   console.log("Error");
-      //   console.log(err); 
-      // })
+      Auth.register(data)
+      .then(res => {
+        console.log('register success!!!'); 
+        console.log(res);
+      })
+      .catch(err => {
+        console.log("Error");
+        console.log(err.response); 
+      })
     }
   };
   document.title = 'Register';
