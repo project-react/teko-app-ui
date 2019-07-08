@@ -1,9 +1,9 @@
 import React from 'react'; 
 import { RegisterForm } from 'components/RegisterForm'; 
 
-const Register = () => {
+const Register = (props) => {
   return(
-    <RegisterForm /> 
+    <RegisterForm {...props}/> 
   )
 }
 

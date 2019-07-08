@@ -161,9 +161,9 @@ function displayValidationErrors (fieldName, validators) {
   return result;
 }
 
-function isFormValid(validators, inputManagement) {
+function isFormValid(validators, validatorsField) {
   let status = true;  
-  Object.keys(inputManagement).forEach((field) => {
+  validatorsField.forEach((field) => {
     if (!validators[field].valid) {
       status = false;
     } 

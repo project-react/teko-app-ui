@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const classes = MaterialInputForm.useStyles();
   document.title = "Login";  
   return (

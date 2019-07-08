@@ -1,8 +1,14 @@
+
 class Auth {
   constructor() {
     this.authenticated = false;
   }
   
+  register(data) {
+    console.log(data); 
+
+  }
+
   login(cb) {
     this.authenticated = true;
     cb();
@@ -12,7 +18,7 @@ class Auth {
     this.authenticated = false;
     cb();
   }
-  
+
   isAuthenticated() {
     return this.authenticated;
   }
