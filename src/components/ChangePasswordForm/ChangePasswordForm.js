@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -12,10 +11,25 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
+import { InputText } from 'components/shared/InputText';
+import { Helpers } from 'helpers';
 
 export default function ChangePasswordForm() {
   const classes = MaterialInputForm.useStyles();
   document.title = "ChangePasswordForm"
+
+  const [passwordField, setPasswordField] = useState({
+    value: '', 
+    error: '', 
+    isError: false
+  })
+
+  const [newpasswordField, setnewpasswordField] = useState({
+    value: '', 
+    error: '', 
+    isError: false
+  })
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -24,32 +38,38 @@ export default function ChangePasswordForm() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Register
+          Change Password
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
+              <InputText
+                autoComplete="fname"
+                name="password"
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
                 id="password"
-                autoComplete="current-password"
+                label="Password"
+                autoFocus
+                type="password"
+                textField={passwordField}
+                setChange={setPasswordField}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <InputText
+                autoComplete="fname"
+                name="newpassword"
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
+                id="newpassword"
                 label="New Password"
+                autoFocus
                 type="password"
-                id="new-password"
-                autoComplete="current-password"
+                textField={newpasswordField}
+                setChange={setnewpasswordField}
               />
             </Grid>
             <Grid item xs={12}>

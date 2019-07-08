@@ -42,11 +42,20 @@ export default function RegisterForm(props) {
     let validatorsField = ["username", "email", "password", "confirmpassword"]; 
     if(Helpers.isFormValid(Helpers.validators, validatorsField)){
       const data = {
-        'username': usernameField.value, 
         'email': emailField.value, 
+        'username': usernameField.value, 
         'password': passwordField.value
       }
-      Auth.register(data)
+      console.log(data); 
+      // Auth.register(data)
+      // .then(res => {
+      //   console.log('register success!!!'); 
+      //   console.log(res);
+      // })
+      // .catch(err => {
+      //   console.log("Error");
+      //   console.log(err); 
+      // })
     }
   };
   document.title = 'Register';
@@ -141,7 +150,7 @@ export default function RegisterForm(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/Login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

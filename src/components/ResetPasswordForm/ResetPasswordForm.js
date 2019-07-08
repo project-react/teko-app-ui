@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,10 +12,25 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
+import { InputText } from 'components/shared/InputText';
+import { Helpers } from 'helpers';
 
 export default function ResetPasswordForm() {
   const classes = MaterialInputForm.useStyles();
-  document.title = "Register"
+  document.title = "Reset Password"
+
+  const [usernameField, setUsernameField] = useState({
+    value: '',
+    error: '', 
+    isError: false
+  });
+
+  const [emailField, setEmailField] = useState({
+    value: '', 
+    error: '', 
+    isError: false
+  })
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -24,31 +39,38 @@ export default function ResetPasswordForm() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Register
+          Reset Password
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
+              <InputText
                 autoComplete="fname"
-                name="firstName"
+                name="username"
                 variant="outlined"
                 required
                 fullWidth
                 id="username"
                 label="User Name"
                 autoFocus
+                type="text"
+                textField={usernameField}
+                setChange={setUsernameField}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <InputText
+                autoComplete="fname"
+                name="email"
                 variant="outlined"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="email"
-                autoComplete="email"
+                autoFocus
+                type="text"
+                textField={emailField}
+                setChange={setEmailField}
               />
             </Grid>
             <Grid item xs={12}>
@@ -65,7 +87,7 @@ export default function ResetPasswordForm() {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            Reset
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
