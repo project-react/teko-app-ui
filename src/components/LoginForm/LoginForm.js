@@ -15,11 +15,11 @@ import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
 import Auth from 'services/auth';
 import { Link as RouteLink } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default function LoginForm(props) {
   const classes = MaterialInputForm.useStyles();
   document.title = 'Login';
-
   const [usernameField, setUsernameField] = useState({
     value: '',
     error: '',
@@ -31,6 +31,32 @@ export default function LoginForm(props) {
     error: '',
     isError: false
   });
+
+  const submit = e => {
+    e.preventDefault(); 
+    let validatorsField = ["username", "password"]; 
+    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+      const data = {
+        'username' : usernameField.value, 
+        'password' : passwordField.value
+      }
+      Auth.login(data)
+      .then(res => {
+        let expiredTime = res.data.expired_time; 
+        swal("Hello, " + usernameField.value , "Auto Logout in: " + expiredTime, "success").then(
+          () => {
+            props.history.push("/Home"); 
+          }
+        )
+      })
+      .catch(err => {
+        console.log(err.response.data.message); 
+        swal("Sorry!", err.response.data.message , "error");
+      })
+    } else {
+      swal("Sorry!", "wrong input format" , "error");
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,6 +111,7 @@ export default function LoginForm(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={submit}
           >
             Login
           </Button>

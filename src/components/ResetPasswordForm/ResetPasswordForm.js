@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -14,6 +13,8 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
+import Auth  from 'services/auth'; 
+import swal from 'sweetalert';
 
 export default function ResetPasswordForm() {
   const classes = MaterialInputForm.useStyles();
@@ -31,6 +32,29 @@ export default function ResetPasswordForm() {
     isError: false
   })
   
+  const submit = e => {
+    e.preventDefault();
+    let validatorsField = ["username", "email"]; 
+    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+      const data = {
+        'username': usernameField.value, 
+        'email': emailField.value
+      }
+      Auth.resetPassword(data)
+      .then(res => {
+        console.log(res.data.message); 
+        swal("Hello, " + usernameField.value, "We are send new password to " + emailField.value + ". You can check", "success"); 
+      })
+      .catch(err => {
+        console.log(err.response.data.message); 
+        swal("Sorry!", err.response.data.message , "error");
+      })
+    }
+    else {
+      swal("Sorry!", "wrong input" , "error");
+    }
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -86,6 +110,7 @@ export default function ResetPasswordForm() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={submit}
           >
             Reset
           </Button>

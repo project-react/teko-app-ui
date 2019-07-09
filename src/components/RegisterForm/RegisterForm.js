@@ -38,7 +38,6 @@ export default function RegisterForm(props) {
   })
   const submit = e => {
     e.preventDefault();
-    swal("Oops!", "Something went wrong!", "error");
     let validatorsField = ["username", "email", "password", "confirmpassword"]; 
     if(Helpers.isFormValid(Helpers.validators, validatorsField)){
       const data = {
@@ -48,7 +47,11 @@ export default function RegisterForm(props) {
       }
       Auth.register(data)
       .then(res => {
-        console.log(res);
+        let username = res.data.username; 
+        let email = res.data.email; 
+        let expiredTime = res.data.expired_time; 
+        swal("Hello, " + username, "You can check email: " + email + " and verify account before: " + expiredTime, "success"); 
+        console.log(res.data);
       })
       .catch(err => {
         console.log(err.response); 

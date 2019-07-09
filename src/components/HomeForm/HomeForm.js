@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 
 import { Material } from 'components/shared/Material'
 
-export default function Admin() {
+export default function Home() {
   const classes = Material.useStyles();
   
   return (
@@ -19,7 +19,7 @@ export default function Admin() {
           Hello
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Every One
+          Every Big Brother
         </Typography>
       </Container>
       {/* End hero unit */}
