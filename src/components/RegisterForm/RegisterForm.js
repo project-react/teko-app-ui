@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -14,6 +12,7 @@ import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
 import Auth from 'services/auth'
+import swal from 'sweetalert';
 
 export default function RegisterForm(props) {
   const classes = MaterialInputForm.useStyles();
@@ -39,6 +38,7 @@ export default function RegisterForm(props) {
   })
   const submit = e => {
     e.preventDefault();
+    swal("Oops!", "Something went wrong!", "error");
     let validatorsField = ["username", "email", "password", "confirmpassword"]; 
     if(Helpers.isFormValid(Helpers.validators, validatorsField)){
       const data = {
@@ -46,14 +46,11 @@ export default function RegisterForm(props) {
         'username': usernameField.value, 
         'password': passwordField.value
       }
-      console.log(data); 
       Auth.register(data)
       .then(res => {
-        console.log('register success!!!'); 
         console.log(res);
       })
       .catch(err => {
-        console.log("Error");
         console.log(err.response); 
       })
     }
@@ -129,12 +126,6 @@ export default function RegisterForm(props) {
                 type="password"
                 textField={confirmpasswordField}
                 setChange={setconfirmpasswordField}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
           </Grid>
