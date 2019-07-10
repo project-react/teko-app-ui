@@ -3,11 +3,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {LayoutUser} from 'layouts/LayoutUser'; 
 import {ChangePasswordForm} from 'components/ChangePasswordForm'; 
 
-const ChangePassword = () => {
+const ChangePassword = (props) => {
   return(
     <React.Fragment>
       <CssBaseline />
-      <LayoutUser />
+      <LayoutUser {...props}/>
       <ChangePasswordForm />
     </React.Fragment>
   )

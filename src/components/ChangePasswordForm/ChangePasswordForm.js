@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -13,6 +11,8 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
+import swal from 'sweetalert';
+import Auth from 'services/auth';
 
 export default function ChangePasswordForm() {
   const classes = MaterialInputForm.useStyles();
@@ -29,6 +29,27 @@ export default function ChangePasswordForm() {
     error: '', 
     isError: false
   })
+
+  const onClick = (e) => {
+    e.preventDefault();
+    let validatorsField = ["password", "newpassword"]; 
+    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+      const data = {
+        'token' : localStorage.getItem('token'), 
+        'password' : passwordField.value, 
+        'newpassword' : newpasswordField.value, 
+      }
+      Auth.changePassword(data)
+      .then(res => {
+        swal("Change Password Success", "success")
+      })
+      .catch(err => {
+        swal("Sorry!", "Data Error" , "error");
+      })
+    } else {
+      swal("Sorry!", "wrong input format" , "error");
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,12 +93,6 @@ export default function ChangePasswordForm() {
                 setChange={setnewpasswordField}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -85,6 +100,7 @@ export default function ChangePasswordForm() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={onClick}
           >
             Sign Up
           </Button>

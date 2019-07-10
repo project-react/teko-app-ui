@@ -20,6 +20,10 @@ class Auth {
     cb();
   }
 
+  changePassword(data) {
+    return axios.post(`${URL}/changepassword/`, data);
+  }
+
   resetPassword(data) {
     return axios.post(`${URL}/resetpassword/`, data); 
   }
@@ -30,7 +34,7 @@ class Auth {
 
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
-      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
+      if(path === '/Login' || path === '/Register'){
         this.authenticated = true; 
       }
       else {
