@@ -1,10 +1,13 @@
-import React from 'react';
-
+import React from 'react';  
+import { LayoutUser } from 'layouts/LayoutUser'
 import { HomeForm } from 'components/HomeForm'; 
 
 const Home = (props) => {
   return(
-    <HomeForm {...props}/>
+    <React.Fragment>
+      <LayoutUser />
+      <HomeForm {...props}/>
+    </React.Fragment>
   );
 }
 

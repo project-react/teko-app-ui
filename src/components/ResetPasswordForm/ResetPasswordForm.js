@@ -14,6 +14,7 @@ import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
 import Auth  from 'services/auth'; 
+import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
 
 export default function ResetPasswordForm() {
@@ -97,12 +98,7 @@ export default function ResetPasswordForm() {
                 setChange={setEmailField}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+            
           </Grid>
           <Button
             type="submit"
@@ -116,7 +112,7 @@ export default function ResetPasswordForm() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/Login" variant="body2" component={RouteLink}>
                 Already have an account? Sign in
               </Link>
             </Grid>

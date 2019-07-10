@@ -11,7 +11,8 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { Helpers } from 'helpers';
-import Auth from 'services/auth'
+import Auth from 'services/auth'; 
+import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
 
 export default function RegisterForm(props) {
@@ -144,7 +145,7 @@ export default function RegisterForm(props) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/Login" variant="body2">
+              <Link to="/Login" variant="body2" component={RouteLink}>
                 Already have an account? Sign in
               </Link>
             </Grid>

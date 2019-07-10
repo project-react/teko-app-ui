@@ -12,12 +12,12 @@ const AuthRoute = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/Register" component={Register} />
-        <Route path="/Login" component={Login} />
-        <Route path="/ResetPassword" component={ResetPassword} />
-        <Route path="/ChangePassword" component={ChangePassword} />
+        <PrivateRoute path="/Register" component={Register} />
+        <PrivateRoute path="/Login" component={Login} />
+        <PrivateRoute path="/ResetPassword" component={ResetPassword} />
+        <PrivateRoute path="/ChangePassword" component={ChangePassword} />
         <PrivateRoute path="/Home" component={Home} />
-        <Redirect from="/" to="/Register" />
+        <Redirect from="/" to="/Login" />
       </Switch>
     </Router>
   )

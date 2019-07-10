@@ -45,6 +45,9 @@ export default function LoginForm(props) {
         let expiredTime = res.data.expired_time; 
         swal("Hello, " + usernameField.value , "Auto Logout in: " + expiredTime, "success").then(
           () => {
+            localStorage.setItem('username', usernameField.value); 
+            localStorage.setItem('token', res.data.token); 
+            localStorage.setItem('time', expiredTime); 
             props.history.push("/Home"); 
           }
         )

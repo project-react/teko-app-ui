@@ -28,7 +28,23 @@ class Auth {
     this.authenticated = value;
   }
 
-  isAuthenticated() {
+  isAuthenticated(path) {
+    if(localStorage.getItem("username") === null) {
+      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
+        this.authenticated = true; 
+      }
+      else {
+        this.authenticated = false;
+      }
+    }
+    else {
+      if(path === '/Login' || path === '/Register'){
+        this.authenticated = false; 
+      }
+      else {
+        this.authenticated = true;
+      }
+    }
     return this.authenticated;
   }
 }

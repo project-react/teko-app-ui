@@ -10,16 +10,17 @@ import { Material } from 'components/shared/Material'
 
 export default function Home() {
   const classes = Material.useStyles();
-  
+  document.title = 'Home';
+  let username = ", "  + localStorage.getItem('username'); 
   return (
     <React.Fragment>
       {/* Hero unit */}
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-          Hello
+          Hello{username}
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Every Big Brother
+          Big Brother
         </Typography>
       </Container>
       {/* End hero unit */}
