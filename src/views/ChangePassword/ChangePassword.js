@@ -1,9 +1,15 @@
 import React from 'react'; 
-import { ChangePasswordForm } from 'components/ChangePasswordForm'; 
+import CssBaseline from '@material-ui/core/CssBaseline';
+import {LayoutUser} from 'layouts/LayoutUser'; 
+import {ChangePasswordForm} from 'components/ChangePasswordForm'; 
 
 const ChangePassword = () => {
   return(
-    <ChangePasswordForm />
+    <React.Fragment>
+      <CssBaseline />
+      <LayoutUser />
+      <ChangePasswordForm />
+    </React.Fragment>
   )
 }
 
