@@ -7,7 +7,7 @@ class Auth {
   }
 
   register(data) {
-    return axios.post(`${URL}/signup/`, data);
+    return axios.post(`${URL}/register/`, data);
   }
 
   login(data) {
@@ -26,11 +26,11 @@ class Auth {
   }
 
   changePassword(data) {
-    return axios.post(`${URL}/changepassword/`, data);
+    return axios.post(`${URL}/changePassword/`, data);
   }
 
   resetPassword(data) {
-    return axios.post(`${URL}/resetpassword/`, data); 
+    return axios.post(`${URL}/resetPassword/`, data); 
   }
   
   setAuthenticated(value) {
@@ -39,7 +39,7 @@ class Auth {
 
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
-      if(path === '/Login' || path === '/Register'){
+      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
         this.authenticated = true; 
       }
       else {
@@ -47,7 +47,7 @@ class Auth {
       }
     }
     else {
-      if(path === '/Login' || path === '/Register'){
+      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
         this.authenticated = false; 
       }
       else {
