@@ -7,7 +7,7 @@ const Home = (props) => {
   return(
     <React.Fragment>
       <CssBaseline />
-      <LayoutUser {...props}/>
+      <LayoutUser {...props} />
       <HomeForm {...props}/>
     </React.Fragment>
   );

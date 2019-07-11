@@ -15,9 +15,14 @@ class Auth {
     return axios.post(`${URL}/login/`, data); 
   }
 
-  logout(cb) {
+  logout(token) {
     this.authenticated = false;
-    cb();
+    const data = {
+      headers: {
+        Authorization: token
+      }
+    }
+    return axios.get(`${URL}/logout/`, data); 
   }
 
   changePassword(data) {

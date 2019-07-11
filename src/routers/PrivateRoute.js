@@ -7,9 +7,12 @@ export const PrivateRoute = ({
   component, 
   ...rest
 }) => {
+  const getData = (e) =>{
+    console.log("onload");
+  }
   if(Auth.isAuthenticated(path)){
     return(
-      <Route path={path} component={component} />
+      <Route path={path} component={component} onEnter={getData} />
     ); 
   }
   else {

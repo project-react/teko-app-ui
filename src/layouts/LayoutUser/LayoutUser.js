@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, { useEffect } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -6,11 +6,38 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
-
+import Auth from 'services/auth';
 import { Material } from 'components/shared/Material'; 
 
 
 const LayoutUser = (props) => {
+  useEffect(() => {
+    const expTime  = localStorage.getItem('time')*1000; 
+    const datenow = Date.now();  
+    if(expTime - datenow <= 0){
+      swal({
+        title: "Time out !!!",
+        text: "System auto logout !!!",
+        icon: "warning",
+        dangerMode: true, 
+      }).then(() => {
+        Auth.logout(localStorage.getItem('token'))
+        .then((res) =>{
+          swal("Good bye, ", res.data.message, "success")
+          .then(() =>{
+            localStorage.clear();
+            props.history.push("/"); 
+          })
+        })
+        .catch((err) =>{
+          localStorage.clear();
+          props.history.push("/"); 
+        })
+      })
+    }
+  }, []);
+
+ 
   const classes = Material.useStyles(); 
   let username = localStorage.getItem('username'); 
   const onClick = () => {
@@ -21,8 +48,21 @@ const LayoutUser = (props) => {
       dangerMode: true, 
     }).then((ok) => {
         if(ok){
-          localStorage.clear()
-          props.history.push("/"); 
+          Auth.logout(localStorage.getItem('token'))
+          .then((res) => {
+            swal("Good bye, ", res.data.message, "success")
+            .then(() =>{
+              localStorage.clear()
+              props.history.push("/"); 
+            })
+          })
+          .catch((err) => {
+            swal("Sorry!", "Time out, auto logout" , "error")
+            .then(()=>{
+              localStorage.clear()
+              props.history.push("/");  
+            })
+          })
         }
     })  
   }
