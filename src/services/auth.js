@@ -39,7 +39,7 @@ class Auth {
 
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
-      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
+      if(path === '/login' || path === '/register' || path === '/resetPassword'){
         this.authenticated = true; 
       }
       else {
@@ -47,7 +47,7 @@ class Auth {
       }
     }
     else {
-      if(path === '/Login' || path === '/Register' || path === '/ResetPassword'){
+      if(path === '/login' || path === '/register' || path === '/resetPassword'){
         this.authenticated = false; 
       }
       else {

@@ -1,12 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Helpers } from 'helpers';
+import { validatorHelper } from 'helpers/validator';
 
 const InputText = props => {
   const { textField, setChange } = props; 
   const onChange = e => {
-    Helpers.updateValidation(props.name, e.target.value, Helpers.validators);
-    let ArrayError = Helpers.displayValidationErrors(props.name, Helpers.validators); 
+    validatorHelper.updateValidation(props.name, e.target.value, validatorHelper.validators);
+    let ArrayError = validatorHelper.displayValidationErrors(props.name, validatorHelper.validators); 
     let isError = true;
     if(ArrayError.length === 0){
       isError = false; 

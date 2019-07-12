@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
-import { Helpers } from 'helpers';
+import { validatorHelper } from 'helpers/validator';
 import Auth  from 'services/auth'; 
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -34,7 +34,7 @@ export default function ResetPasswordForm() {
   const submit = e => {
     e.preventDefault();
     let validatorsField = ["username", "email"]; 
-    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+    if(validatorHelper.isFormValid(validatorHelper.validators, validatorsField)){
       const data = {
         'username': usernameField.value, 
         'email': emailField.value

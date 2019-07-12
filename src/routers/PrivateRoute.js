@@ -16,13 +16,13 @@ export const PrivateRoute = ({
     ); 
   }
   else {
-    if(path === '/Login' || path === '/Register'){
+    if(path === '/login' || path === '/register'){
       return(
-        <Redirect from="/" to="/Home" />
+        <Redirect from="/" to="/home" />
       ); 
     } else {
       return(
-        <Redirect from="/" to="/Login" />
+        <Redirect from="/" to="/login" />
       );
     }
   }

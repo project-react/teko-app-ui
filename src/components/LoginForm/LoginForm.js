@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
-import { Helpers } from 'helpers';
+import { validatorHelper } from 'helpers/validator';
 import Auth from 'services/auth';
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -23,43 +23,47 @@ export default function LoginForm(props) {
   const [usernameField, setUsernameField] = useState({
     value: '',
     error: '',
-    isError: false
+    isError: false,
   });
 
   const [passwordField, setPasswordField] = useState({
     value: '',
     error: '',
-    isError: false
+    isError: false,
   });
 
   const submit = e => {
-    e.preventDefault(); 
-    let validatorsField = ["username", "password"]; 
-    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+    e.preventDefault();
+    let validatorsField = ['username', 'password'];
+    if (
+      validatorHelper.isFormValid(validatorHelper.validators, validatorsField)
+    ) {
       const data = {
-        'username' : usernameField.value, 
-        'password' : passwordField.value
-      }
+        username: usernameField.value,
+        password: passwordField.value,
+      };
       Auth.login(data)
-      .then(res => {
-        let expiredTime = res.data.expired_time; 
-        swal("Hello, " + usernameField.value , "Auto Logout in: " + expiredTime, "success").then(
-          () => {
-            localStorage.setItem('username', usernameField.value); 
-            localStorage.setItem('token', res.data.token); 
-            localStorage.setItem('time', expiredTime); 
-            props.history.push("/Home"); 
-          }
-        )
-      })
-      .catch(err => {
-        console.log(err.response.data.message); 
-        swal("Sorry!", err.response.data.message , "error");
-      })
+        .then(res => {
+          let expiredTime = res.data.expired_time;
+          swal(
+            'Hello, ' + usernameField.value,
+            'Auto Logout in: ' + expiredTime,
+            'success',
+          ).then(() => {
+            localStorage.setItem('username', usernameField.value);
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('time', expiredTime);
+            props.history.push('/Home');
+          });
+        })
+        .catch(err => {
+          console.log(err.response.data.message);
+          swal('Sorry!', err.response.data.message, 'error');
+        });
     } else {
-      swal("Sorry!", "wrong input format" , "error");
+      swal('Sorry!', 'wrong input format', 'error');
     }
-  }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -125,7 +129,10 @@ export default function LoginForm(props) {
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/Register" variant="body2" component={RouteLink}> Register</Link>
+              <Link to="/Register" variant="body2" component={RouteLink}>
+                {' '}
+                Register
+              </Link>
             </Grid>
           </Grid>
         </form>

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
-import { Helpers } from 'helpers';
+import { validatorHelper } from 'helpers/validator';
 import swal from 'sweetalert';
 import Auth from 'services/auth';
 
@@ -33,7 +33,7 @@ export default function ChangePasswordForm() {
   const onClick = (e) => {
     e.preventDefault();
     let validatorsField = ["password", "newpassword"]; 
-    if(Helpers.isFormValid(Helpers.validators, validatorsField)){
+    if(validatorHelper.isFormValid(validatorHelper.validators, validatorsField)){
       const data = {
         'token' : localStorage.getItem('token'), 
         'password' : passwordField.value, 
