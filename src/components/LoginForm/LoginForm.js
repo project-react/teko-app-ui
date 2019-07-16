@@ -44,10 +44,10 @@ export default function LoginForm(props) {
       };
       Auth.login(data)
         .then(res => {
-          let expiredTime = res.data.expired_time;
+          let expiredTime = Date.now() + 1800000;
           swal(
             'Hello, ' + usernameField.value,
-            'Auto Logout in: ' + expiredTime,
+            'Auto Logout before 30 minutes',
             'success',
           ).then(() => {
             localStorage.setItem('username', usernameField.value);

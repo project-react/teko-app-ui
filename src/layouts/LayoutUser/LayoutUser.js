@@ -12,7 +12,7 @@ import { Material } from 'components/shared/Material';
 
 const LayoutUser = (props) => {
   useEffect(() => {
-    const expTime  = localStorage.getItem('time')*1000; 
+    const expTime  = localStorage.getItem('time'); 
     const datenow = Date.now();  
     if(expTime - datenow <= 0){
       swal({
