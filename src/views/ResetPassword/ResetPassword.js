@@ -3,12 +3,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {LayoutNoUser} from 'layouts/LayoutNoUser';
 import {ResetPasswordForm} from 'components/ResetPasswordForm'; 
 
-const ResetPassword = () => {
+const ResetPassword = (props) => {
   return(
     <React.Fragment>
       <CssBaseline />
       <LayoutNoUser />
-      <ResetPasswordForm />
+      <ResetPasswordForm {...props}/>
     </React.Fragment>
   )
 }

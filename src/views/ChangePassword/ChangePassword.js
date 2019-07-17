@@ -8,7 +8,7 @@ const ChangePassword = (props) => {
     <React.Fragment>
       <CssBaseline />
       <LayoutUser {...props}/>
-      <ChangePasswordForm />
+      <ChangePasswordForm {...props}/>
     </React.Fragment>
   )
 }

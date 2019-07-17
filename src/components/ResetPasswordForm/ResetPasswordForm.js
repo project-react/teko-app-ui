@@ -14,10 +14,47 @@ import { validatorHelper } from 'helpers/validator';
 import Auth  from 'services/auth'; 
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function ResetPasswordForm() {
+export default function ResetPasswordForm(props) {
   const classes = MaterialInputForm.useStyles();
   document.title = "Reset Password"
+
+  const ToolHandlingForm = () => {
+    return (
+      <div>
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={submit}
+          >
+            Reset
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link to="/Login" variant="body2" component={RouteLink}>
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+      </div>
+    )
+  }
+
+  const ToolLoadingForm = () => {
+    return (
+      <Box mt={5}>
+          <CircularProgress disableShrink />
+      </Box>
+    )
+  }
+
+  let ToolHandlingFormChange = ''; 
+
+  let ToolLoadingFormChange = ""; 
 
   const [usernameField, setUsernameField] = useState({
     value: '',
@@ -31,27 +68,43 @@ export default function ResetPasswordForm() {
     isError: false
   })
   
+  const [loadingField, setLoadingField] = useState({
+    isLoading : false, 
+  })   
+
   const submit = e => {
     e.preventDefault();
     let validatorsField = ["username", "email"]; 
     if(validatorHelper.isFormValid(validatorHelper.validators, validatorsField)){
+      setLoadingField({isLoading: true})
       const data = {
         'username': usernameField.value, 
         'email': emailField.value
       }
       Auth.resetPassword(data)
       .then(res => {
-        console.log(res.data.message); 
-        swal("Hello, " + usernameField.value, "We are send new password to " + emailField.value + ". You can check", "success"); 
+        swal("Hello, " + usernameField.value, "We send new password to " + emailField.value + ". You can check", "success")
+        .then(() => {
+          props.history.push("/"); 
+        })
       })
       .catch(err => {
-        console.log(err.response.data.message); 
-        swal("Sorry!", err.response.data.message , "error");
+        swal("Sorry!", err.response.data.message , "error")
+        .then(() => {
+          setLoadingField({isLoading: false})
+        })
       })
     }
     else {
       swal("Sorry!", "wrong input" , "error");
     }
+  }
+
+  if(loadingField.isLoading){
+    ToolLoadingFormChange = ToolLoadingForm(); 
+  } 
+  else {
+    ToolHandlingFormChange = ToolHandlingForm(); 
   }
 
   return (
@@ -96,30 +149,11 @@ export default function ResetPasswordForm() {
                 setChange={setEmailField}
               />
             </Grid>
-            
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={submit}
-          >
-            Reset
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/Login" variant="body2" component={RouteLink}>
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+          {ToolHandlingFormChange}
         </form>
+        {ToolLoadingFormChange}
       </div>
-      <Box mt={5}>
-        <MaterialInputForm.MadeWithLove />
-      </Box>
     </Container>
   );
 }

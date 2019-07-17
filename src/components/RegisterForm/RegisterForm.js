@@ -14,19 +14,59 @@ import { validatorHelper } from 'helpers/validator';
 import Auth from 'services/auth'; 
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function RegisterForm(props) {
+  document.title = 'Register';
   const classes = MaterialInputForm.useStyles();
+  const ToolHandlingForm = () => {
+    return (
+      <div>
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={submit}
+          >
+            Sign Up
+          </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link to="/Login" variant="body2" component={RouteLink}>
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
+      </div>
+    )
+  }
+
+  const ToolLoadingForm = () => {
+    return (
+      <Box mt={5}>
+          <CircularProgress disableShrink />
+      </Box>
+    )
+  }
+  
+  let ToolHandlingFormChange = ''; 
+
+  let ToolLoadingFormChange = ""; 
+  
   const [usernameField, setUsernameField] = useState({
     value: '',
     error: '', 
     isError: false
   });
+
   const [emailField, setEmailField] = useState({
     value: '', 
     error: '', 
     isError: false
   })
+  
   const [passwordField, setPasswordField] = useState({
     value: '', 
     error: '', 
@@ -37,10 +77,14 @@ export default function RegisterForm(props) {
     error: '', 
     isError: false
   })
+  const [loadingField, setLoadingField] = useState({
+    isLoading : false, 
+  })   
   const submit = e => {
     e.preventDefault();
     let validatorsField = ["username", "email", "password", "confirmpassword"]; 
     if(validatorHelper.isFormValid(validatorHelper.validators, validatorsField)){
+      setLoadingField({isLoading: true})
       const data = {
         'email': emailField.value, 
         'username': usernameField.value, 
@@ -51,15 +95,25 @@ export default function RegisterForm(props) {
         let username = res.data.username; 
         let email = res.data.email; 
         let expiredTime = res.data.expired_time; 
-        swal("Hello, " + username, "You can check email: " + email + " and verify account before: " + expiredTime, "success"); 
-        console.log(res.data);
+        swal("Hello, " + username, "You can check email: " + email + " and verify account before: " + expiredTime, "success")
+        .then(() => {
+          props.history.push("/");
+        })
       })
       .catch(err => {
-        console.log(err.response); 
+        swal('Sorry!', err.response.data.message, 'error')
+        .then(() => {
+          setLoadingField({isLoading: false});
+        })
       })
     }
   };
-  document.title = 'Register';
+  if(loadingField.isLoading){
+    ToolLoadingFormChange = ToolLoadingForm(); 
+  } 
+  else {
+    ToolHandlingFormChange = ToolHandlingForm(); 
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -133,24 +187,9 @@ export default function RegisterForm(props) {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={submit}
-          >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to="/Login" variant="body2" component={RouteLink}>
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
+          {ToolHandlingFormChange}
         </form>
+        {ToolLoadingFormChange}
       </div>
       <Box mt={5}>
         <MaterialInputForm.MadeWithLove />
