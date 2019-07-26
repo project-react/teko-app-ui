@@ -17,6 +17,7 @@ class Auth {
 
   logout(token) {
     this.authenticated = false;
+    console.log(token)
     const data = {
       headers: {
         Authorization: token

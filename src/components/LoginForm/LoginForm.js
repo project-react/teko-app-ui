@@ -97,19 +97,24 @@ export default function LoginForm(props) {
       Auth.login(data)
         .then(res => {
           let expiredTime = Date.now() + 1800000;
+          console.log(res.data.token); 
           swal(
             'Hello, ' + usernameField.value,
             'Auto Logout before 30 minutes',
             'success',
           ).then(() => {
+            localStorage.setItem('token', res.data.token)
             localStorage.setItem('username', usernameField.value);
-            localStorage.setItem('token', res.data.token);
             localStorage.setItem('time', expiredTime);
-            props.history.push('/Home');
+            if(res.data.isAdmin){
+              props.history.push('/admin')
+            } else {
+              props.history.push('/home');
+            }
           });
         })
         .catch(err => {
-          console.log(err.response.data.message);
+          console.log(err.response);
           swal('Sorry!', err.response.data.message, 'error');
           setLoadingField({isLoading: false});
         });

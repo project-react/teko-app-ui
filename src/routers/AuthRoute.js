@@ -7,6 +7,7 @@ import { Login } from 'views/Login';
 import { ResetPassword } from 'views/ResetPassword'; 
 import { ChangePassword } from 'views/ChangePassword';
 import { Home } from 'views/Home'; 
+import { Admin } from 'views/Admin'; 
 
 const AuthRoute = () => {
   return (
@@ -17,6 +18,7 @@ const AuthRoute = () => {
         <PrivateRoute path="/resetPassword" component={ResetPassword} />
         <PrivateRoute path="/changePassword" component={ChangePassword} />
         <PrivateRoute path="/home" component={Home} />
+        <PrivateRoute path="/admin" component={Admin} />
         <Redirect from="/" to="login" />
       </Switch>
     </Router>
