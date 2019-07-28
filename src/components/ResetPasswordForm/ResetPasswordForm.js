@@ -85,7 +85,7 @@ export default function ResetPasswordForm(props) {
       .then(res => {
         swal("Hello, " + usernameField.value, "We send new password to " + emailField.value + ". You can check", "success")
         .then(() => {
-          props.history.push("/"); 
+          props.history.push("/login"); 
         })
       })
       .catch(err => {

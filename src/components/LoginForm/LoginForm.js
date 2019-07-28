@@ -40,12 +40,12 @@ export default function LoginForm(props) {
         </Button> 
         <Grid container>
           <Grid item xs>
-            <Link to="/ResetPassword" variant="body2" component={RouteLink}>
+            <Link to="/resetPassword" variant="body2" component={RouteLink}>
               Forgot password?
             </Link>
           </Grid>
           <Grid item>
-            <Link to="/Register" variant="body2" component={RouteLink}>
+            <Link to="/register" variant="body2" component={RouteLink}>
               {' '}
               Register
             </Link>
@@ -97,7 +97,6 @@ export default function LoginForm(props) {
       Auth.login(data)
         .then(res => {
           let expiredTime = Date.now() + 1800000;
-          console.log(res.data.token); 
           swal(
             'Hello, ' + usernameField.value,
             'Auto Logout before 30 minutes',
@@ -114,9 +113,13 @@ export default function LoginForm(props) {
           });
         })
         .catch(err => {
-          console.log(err.response);
-          swal('Sorry!', err.response.data.message, 'error');
-          setLoadingField({isLoading: false});
+          if(err.response){
+            swal('Sorry!', err.response.data.message, 'error');
+            setLoadingField({isLoading: false});
+          }
+          else if(err.request){
+            props.history.push('/serverError');
+          }
         });
     } else {
       swal('Sorry!', 'wrong input format', 'error');

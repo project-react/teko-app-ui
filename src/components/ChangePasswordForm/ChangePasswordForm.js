@@ -77,14 +77,19 @@ export default function ChangePasswordForm(props) {
       .then(res => {
         swal("Change Password Success", "success")
         .then(() => {
-          props.history.push("/"); 
+          props.history.push("/home"); 
         })
       })
       .catch(err => {
-        swal("Sorry!", "Data Error" , "error")
-        .then(() => {
-          setLoadingField({isLoading: false})
-        })
+        if(err.response) {
+          swal("Sorry!", err.response.data.message , "error")
+          .then(() => {
+            setLoadingField({isLoading: false})
+          })
+        }
+        else if(err.request) {
+          props.history.push("/serverError");
+        }
       })
     } else {
       swal("Sorry!", "wrong input format" , "error");

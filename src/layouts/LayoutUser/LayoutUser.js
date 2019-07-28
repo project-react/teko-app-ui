@@ -26,12 +26,12 @@ const LayoutUser = (props) => {
           swal("Good bye, ", res.data.message, "success")
           .then(() =>{
             localStorage.clear();
-            props.history.push("/"); 
+            props.history.push("/login"); 
           })
         })
         .catch((err) =>{
           localStorage.clear();
-          props.history.push("/"); 
+          props.history.push("/login"); 
         })
       })
     }
@@ -53,14 +53,14 @@ const LayoutUser = (props) => {
             swal("Good bye, ", res.data.message, "success")
             .then(() =>{
               localStorage.clear()
-              props.history.push("/"); 
+              props.history.push("/login"); 
             })
           })
           .catch((err) => {
             swal("Sorry!", "Time out, auto logout" , "error")
             .then(()=>{
               localStorage.clear()
-              props.history.push("/");  
+              props.history.push("/login");  
             })
           })
         }
@@ -73,10 +73,10 @@ const LayoutUser = (props) => {
             TEKO APP
           </Typography>
           <nav>
-            <Link variant="button" color="textPrimary" to="/Home" component={RouteLink} className={classes.link}>
+            <Link variant="button" color="textPrimary" to="/home" component={RouteLink} className={classes.link}>
               Home
             </Link>
-            <Link variant="button" color="textPrimary" to="/ChangePassword" component={RouteLink} className={classes.link}>
+            <Link variant="button" color="textPrimary" to="/changePassword" component={RouteLink} className={classes.link}>
               Change Password
             </Link>
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>

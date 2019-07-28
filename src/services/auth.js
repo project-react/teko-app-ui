@@ -1,5 +1,6 @@
 import axios from 'axios';
-const URL = process.env.REACT_APP_API_URL;
+const URL = process.env.REACT_APP_API_URL_USERS;
+const AURL = process.env.REACT_APP_API_URL_ADMIN; 
 
 class Auth {
   constructor() {
@@ -34,28 +35,56 @@ class Auth {
     return axios.post(`${URL}/resetPassword/`, data); 
   }
   
-  setAuthenticated(value) {
-    this.authenticated = value;
+  adminLoadListUser(token) {
+    const data = {
+      headers: {
+        Authorization: token
+      }
+    }
+    return axios.get(`${AURL}/getlistuser/`, data); 
+  }
+
+  verifyAdmin(token) {
+    const data = {
+      headers: {
+        Authorization: token
+      }
+    }
+    return axios.get(`${AURL}/isAdmin/`, data); 
   }
 
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
       if(path === '/login' || path === '/register' || path === '/resetPassword'){
-        this.authenticated = true; 
+        // this.authenticated = true; 
+        return true; 
       }
       else {
-        this.authenticated = false;
+        // this.authenticated = false;
+        return false; 
       }
     }
     else {
       if(path === '/login' || path === '/register' || path === '/resetPassword'){
-        this.authenticated = false; 
+        // this.authenticated = false; 
+        return false; 
       }
       else {
-        this.authenticated = true;
+        if(path !== '/admin'){
+          // this.authenticated = true;
+          return true; 
+        }
+        else{
+          this.verifyAdmin(localStorage.getItem('token'))
+          .then(() => {
+            return true
+          })
+          .catch(() => {
+            return false 
+          })
+        }
       }
     }
-    return this.authenticated;
   }
 }
 

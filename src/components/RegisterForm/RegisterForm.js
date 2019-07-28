@@ -97,7 +97,7 @@ export default function RegisterForm(props) {
         let expiredTime = res.data.expired_time; 
         swal("Hello, " + username, "You can check email: " + email + " and verify account before: " + expiredTime, "success")
         .then(() => {
-          props.history.push("/");
+          props.history.push("/login");
         })
       })
       .catch(err => {

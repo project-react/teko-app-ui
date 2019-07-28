@@ -7,15 +7,13 @@ export const PrivateRoute = ({
   component, 
   ...rest
 }) => {
-  const getData = (e) =>{
-    console.log("onload");
-  }
   if(Auth.isAuthenticated(path)){
     return(
-      <Route path={path} component={component} onEnter={getData} />
+      <Route exact path={path} component={component}/>
     ); 
   }
   else {
+    console.log('else Private route')
     if(path === '/login' || path === '/register'){
       return(
         <Redirect from="/" to="/home" />

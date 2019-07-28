@@ -1,7 +1,7 @@
 import React from 'react'; 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { LayoutNoUser }  from 'layouts/LayoutNoUser'; 
-import { LoginForm } from 'components/LoginForm'; 
+import {LayoutNoUser}  from 'layouts/LayoutNoUser'; 
+import {LoginForm} from 'components/LoginForm'; 
 
 const Login = (props) => {
   return(
