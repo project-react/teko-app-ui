@@ -2,8 +2,6 @@ import React, {lazy, Suspense} from 'react';
 import {BrowserRouter as Router, Redirect, Switch} from 'react-router-dom'; 
 import {Route} from "react-router-dom";
 import {PrivateRoute}  from './PrivateRoute'; 
-import "antd/dist/antd.css";
-import {Spin} from 'antd';
 const Register = lazy(() => import('views/Register'));
 const Login = lazy(() => import('views/Login'));
 const ResetPassword = lazy(() => import('views/ResetPassword'));
@@ -17,45 +15,7 @@ const UnAuthorized = lazy(() => import('views/UnAuthorized'));
 const AuthRoute = () => {
   return (
     <Suspense fallback={
-      <div>
         <div>Loading ...</div>
-        <div className="example">
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <br />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <br />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <br />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <br />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-          <Spin size="large" />
-        </div>
-      </div>
     }>
         <Router>
           <Switch>

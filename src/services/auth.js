@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs'; 
 const URL = process.env.REACT_APP_API_URL_USERS;
 const AURL = process.env.REACT_APP_API_URL_ADMIN; 
 
@@ -44,6 +45,16 @@ class Auth {
       }
     }
     return axios.get(`${AURL}/isAdmin/`, data); 
+  }
+
+  editInforUserByNickAdmin(data, token) {
+    console.log(token)
+    const config = {
+      headers: {
+        Authorization: token,
+      }
+    }
+    axios.put(`${AURL}/edituser/`, data, config);
   }
 
   isAuthenticated(path) {

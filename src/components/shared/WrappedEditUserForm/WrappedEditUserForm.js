@@ -5,8 +5,9 @@ import {
   Checkbox,
   Button,
 } from 'antd';
-
+import Auth from 'services/auth';
 const FromSubmitEdit = (props) =>{
+  const {oldUser} = props;
   const {getFieldDecorator} = props.form;
   const formItemLayout = {
     labelCol: {
@@ -30,56 +31,93 @@ const FromSubmitEdit = (props) =>{
       },
     },
   };
+  let checkboxMakeAdmin = ''; 
+  if (oldUser.is_admin === "No") {
+    checkboxMakeAdmin = (
+      <Form.Item {...tailFormItemLayout}>
+        {getFieldDecorator('is_admin', {
+          valuePropName: 'checked', 
+        })(
+          <Checkbox>
+            Make Admin
+          </Checkbox>,
+        )}
+      </Form.Item> 
+    )
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        if (values.is_admin == null){
+        if (values.is_admin == null && oldUser.is_admin === "No"){
           values.is_admin = false 
+        } 
+        else if (oldUser.is_admin === "Yes") {values.is_admin = true}
+        console.log(values);
+        console.log(oldUser); 
+        const dataRequestEdit = {
+          'old_username': oldUser.name, 
+          'new_username': values.username, 
+          'new_email': values.email, 
+          'is_admin': values.is_admin
         }
-        console.log(values.is_admin);
+        Auth.editInforUserByNickAdmin(dataRequestEdit, localStorage.getItem('token'))
+        .then(() => {
+          console.log('Success')
+        })
+        .catch(() => {
+          console.log('Error')
+        })
       }
     });
   }
   return (
     <Form {...formItemLayout} onSubmit={handleSubmit}>
-        <Form.Item label="Username">
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-          })(<Input />)} 
-        </Form.Item>
-        <Form.Item label="E-mail">
-          {getFieldDecorator('email', {
-            rules: [
-              {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
-              },
-              {
-                required: true,
-                message: 'Please input your E-mail!',
-              },
-            ],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          {getFieldDecorator('is_admin', {
-            valuePropName: 'checked', 
-          })(
-            <Checkbox>
-              Make Admin
-            </Checkbox>,
-          )}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Submit Change
-          </Button>
-        </Form.Item>
-      </Form>
+      <Form.Item label="Username">
+        {getFieldDecorator('username', {
+          rules: [
+            { 
+              required: true, 
+              message: 'Please input your name!', 
+              whitespace: false, 
+            }, 
+            {
+              pattern: /^\S+$/, 
+              message: 'Username must write immediately'
+            }, 
+            {
+              min: 6, 
+              message: 'Username must be longer than six characters' 
+            }, 
+            {
+              pattern: /^[a-zA-Z0-9]*$/, 
+              message: 'Username must character a-z or upper character, 0-9'
+            }
+          ],
+        })(<Input />)} 
+      </Form.Item>
+      <Form.Item label="E-mail">
+        {getFieldDecorator('email', {
+          rules: [
+            {
+              type: 'email',
+              message: 'The input is not valid E-mail!',
+            },
+            {
+              required: true,
+              message: 'Please input your E-mail!',
+            },
+          ],
+        })(<Input />)}
+      </Form.Item>
+      {checkboxMakeAdmin}
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit Change
+        </Button>
+      </Form.Item>
+    </Form>
   )
 }
-
-const WrappedEditUserForm = Form.create({ name: 'register' })(FromSubmitEdit);
-
-export default WrappedEditUserForm
+const ListUserCreateFormEdit = Form.create({ name: 'Edit user' })(FromSubmitEdit);
+export default ListUserCreateFormEdit

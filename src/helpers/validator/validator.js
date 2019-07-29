@@ -32,11 +32,11 @@ const validators = {
         test: value => {
           return value.length > 0;
         },
-        message: 'Email field cannot be empty'
+        message: 'Please input your E-mail!'
       },
       {
         test: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-        message: 'Email not true'
+        message: 'The input is not valid E-mail!'
       }
     ],
     errors: [],

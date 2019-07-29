@@ -12,18 +12,16 @@ const rowSelection = {
 
 const ListUserForm = () => {
   const [data, setData] = useState([])
+  const [editRecordRow, setEditRecordRow] = useState({})
   const [loadInputForm, setloadInputForm] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-
   const onClickShowModal = (record) => { 
+    setEditRecordRow(record)
     setloadInputForm(true)
-    console.log(loadInputForm)
   }
-
   const onCancel = () => {
     setloadInputForm(false)
   }
-
   const columns = [
     {
       title: 'User name',
@@ -44,10 +42,13 @@ const ListUserForm = () => {
     {
       title: 'Action',
       dataIndex: 'edit',
-      render: (text, record) => <a href="#delete" onClick={e => onClickShowModal(record)}>edit</a>,
+      render: (text, record) => 
+        <a href="#delete" onClick={e => {
+          e.preventDefault()
+          onClickShowModal(record)
+        }}>edit</a>,
     }, 
   ];
-
   useEffect(() => {
     Auth.adminLoadListUser(localStorage.getItem('token'))
     .then((res) => {
@@ -63,9 +64,7 @@ const ListUserForm = () => {
           update: listUser[i].updated_at,
           is_admin: is_admin, 
         })
-        console.log(listUser[i].is_admin)
       }
-      console.log(listData)
       setData(listData)
     })
     .catch((err) => {
@@ -73,7 +72,6 @@ const ListUserForm = () => {
       swal('Sorry!', 'Server error', 'error');
     })
   }, [])
-
   if (data.length === 0 && isLoading){
     return (
       <div>
@@ -95,10 +93,11 @@ const ListUserForm = () => {
           onCancel={onCancel}
           onOk={onCancel}
         >
-          <WrappedEditUserForm />
+          <WrappedEditUserForm oldUser={editRecordRow}/>
         </Modal>
       </div>
     )
   }
 }
+
 export default ListUserForm
