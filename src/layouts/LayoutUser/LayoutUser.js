@@ -57,11 +57,20 @@ const LayoutUser = (props) => {
             })
           })
           .catch((err) => {
-            swal("Sorry!", "Time out, auto logout" , "error")
-            .then(()=>{
-              localStorage.clear()
-              props.history.push("/login");  
-            })
+            if(err.response){
+              swal("Sorry!", "Time out, auto logout" , "error")
+              .then(()=>{
+                localStorage.clear()
+                props.history.push("/login");  
+              })
+            }
+            else if(err.request){
+              swal("Sorry!", "Server error, auto logout" , "error")
+              .then(()=>{
+                localStorage.clear()
+                props.history.push("/login");  
+              })
+            }
           })
         }
     })  
