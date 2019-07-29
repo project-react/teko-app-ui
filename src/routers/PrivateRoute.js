@@ -9,11 +9,10 @@ export const PrivateRoute = ({
 }) => {
   if(Auth.isAuthenticated(path)){
     return(
-      <Route exact path={path} component={component}/>
+      <Route path={path} component={component}/>
     ); 
   }
   else {
-    console.log('else Private route')
     if(path === '/login' || path === '/register'){
       return(
         <Redirect from="/" to="/home" />

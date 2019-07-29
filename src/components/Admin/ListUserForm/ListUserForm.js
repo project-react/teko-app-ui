@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react' 
-import { Spin, Table } from 'antd';
+import {Spin, Table} from 'antd';
 import Auth from 'services/auth';
 import swal from 'sweetalert';
 
@@ -43,7 +43,6 @@ const ListUserForm = () => {
     })
     .catch((err) => {
       setIsLoading(false)
-      console.log(err)
       swal('Sorry!', 'Server error', 'error');
     })
   }, [])

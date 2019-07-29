@@ -101,10 +101,15 @@ export default function RegisterForm(props) {
         })
       })
       .catch(err => {
-        swal('Sorry!', err.response.data.message, 'error')
-        .then(() => {
-          setLoadingField({isLoading: false});
-        })
+        if(err.response){
+          swal('Sorry!', err.response.data.message, 'error')
+          .then(() => {
+            setLoadingField({isLoading: false});
+          })
+        }
+        else if(err.request){
+          props.history.push('/servererror');
+        }
       })
     }
   };

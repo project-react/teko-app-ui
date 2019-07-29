@@ -118,7 +118,7 @@ export default function LoginForm(props) {
             setLoadingField({isLoading: false});
           }
           else if(err.request){
-            props.history.push('/serverError');
+            props.history.push('/servererror');
           }
         });
     } else {

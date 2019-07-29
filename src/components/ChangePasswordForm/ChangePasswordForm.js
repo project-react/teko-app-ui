@@ -88,7 +88,7 @@ export default function ChangePasswordForm(props) {
           })
         }
         else if(err.request) {
-          props.history.push("/serverError");
+          props.history.push("/servererror");
         }
       })
     } else {

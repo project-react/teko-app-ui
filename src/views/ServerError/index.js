@@ -1,1 +1,2 @@
-export {default as ServerError} from './ServerError'
+import ServerError from './ServerError'
+export default ServerError

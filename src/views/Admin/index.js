@@ -1,1 +1,2 @@
-export { default as Admin } from './Admin'
+import Admin from './Admin'
+export default Admin
