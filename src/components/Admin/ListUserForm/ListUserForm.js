@@ -54,13 +54,18 @@ const ListUserForm = () => {
       const listUser = res.data;
       const listData = []; 
       for (let i = 0; i < listUser.length; i++){
+        let is_admin = "No"
+        if(listUser[i].is_admin) is_admin = "Yes"
         listData.push({
           key: i,
           name: listUser[i].username,
           email: listUser[i].email,
-          update: listUser[i].created,
+          update: listUser[i].updated_at,
+          is_admin: is_admin, 
         })
+        console.log(listUser[i].is_admin)
       }
+      console.log(listData)
       setData(listData)
     })
     .catch((err) => {
