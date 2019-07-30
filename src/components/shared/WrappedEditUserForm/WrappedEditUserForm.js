@@ -4,6 +4,7 @@ import {
   Input,
   Checkbox,
   Button,
+  notification, 
 } from 'antd';
 import Auth from 'services/auth';
 const FromSubmitEdit = (props) =>{
@@ -53,8 +54,6 @@ const FromSubmitEdit = (props) =>{
           values.is_admin = false 
         } 
         else if (oldUser.is_admin === "Yes") {values.is_admin = true}
-        console.log(values);
-        console.log(oldUser); 
         const dataRequestEdit = {
           'old_username': oldUser.name, 
           'new_username': values.username, 
@@ -62,43 +61,60 @@ const FromSubmitEdit = (props) =>{
           'is_admin': values.is_admin
         }
         Auth.editInforUserByNickAdmin(dataRequestEdit, localStorage.getItem('token'))
-        .then(() => {
-          console.log('Success')
+        .then((res) => {
+          notification['success']({
+            message: res.data.message,
+            description:
+              'success',
+          });
         })
-        .catch(() => {
-          console.log('Error')
+        .catch((err) => {
+          if(err.response){
+            notification['error']({
+              message: err.response.data.message,
+              description:
+                'error',
+            });
+          }
+          else if(err.request){
+            notification['error']({
+              message: 'Server Error',
+              description:
+                'error',
+            });
+          }
         })
       }
     });
   }
   return (
     <Form {...formItemLayout} onSubmit={handleSubmit}>
-      <Form.Item label="Username">
-        {getFieldDecorator('username', {
-          rules: [
-            { 
-              required: true, 
-              message: 'Please input your name!', 
-              whitespace: false, 
-            }, 
-            {
-              pattern: /^\S+$/, 
-              message: 'Username must write immediately'
-            }, 
-            {
-              min: 6, 
-              message: 'Username must be longer than six characters' 
-            }, 
-            {
-              pattern: /^[a-zA-Z0-9]*$/, 
-              message: 'Username must character a-z or upper character, 0-9'
-            }
-          ],
-        })(<Input />)} 
+      <Form.Item label="Username" >
+      {
+        getFieldDecorator('username', {
+        rules: [
+          { 
+            required: true, 
+            message: 'Please input your name!', 
+          }, 
+          {
+            pattern: /^\S+$/, 
+            message: 'Username must write immediately'
+          }, 
+          {
+            min: 6, 
+            message: 'Username must be longer than six characters' 
+          }, 
+          {
+            pattern: /^[a-zA-Z0-9]*$/, 
+            message: 'Username must character a-z or upper character, 0-9'
+          }
+        ],
+      })(<Input addonAfter={oldUser.name}/>)}
       </Form.Item>
       <Form.Item label="E-mail">
-        {getFieldDecorator('email', {
-          rules: [
+        {getFieldDecorator('email',{
+            rules: [
             {
               type: 'email',
               message: 'The input is not valid E-mail!',
@@ -108,7 +124,7 @@ const FromSubmitEdit = (props) =>{
               message: 'Please input your E-mail!',
             },
           ],
-        })(<Input />)}
+        })(<Input addonAfter={oldUser.email} />)}
       </Form.Item>
       {checkboxMakeAdmin}
       <Form.Item {...tailFormItemLayout}>

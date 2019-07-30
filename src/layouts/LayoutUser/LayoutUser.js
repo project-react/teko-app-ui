@@ -29,13 +29,13 @@ const LayoutUser = (props) => {
             props.history.push("/login"); 
           })
         })
-        .catch((err) =>{
+        .catch((err) => {
           localStorage.clear();
           props.history.push("/login"); 
         })
       })
     }
-  }, []);
+  });
 
  
   const classes = Material.useStyles(); 

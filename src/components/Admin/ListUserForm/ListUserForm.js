@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {Modal ,Spin, Table} from 'antd';
 import Auth from 'services/auth';
 import swal from 'sweetalert';
-import {WrappedEditUserForm} from 'components/shared/WrappedEditUserForm'
+import {WrappedEditUserForm} from 'components/shared/WrappedEditUserForm'; 
+import {ActionListUserForm} from 'components/shared/ActionListUserForm'; 
 
 const rowSelection = {
   onChange: (selectedRowKeys, selectedRows) => {
@@ -41,12 +42,8 @@ const ListUserForm = () => {
     }, 
     {
       title: 'Action',
-      dataIndex: 'edit',
-      render: (text, record) => 
-        <a href="#delete" onClick={e => {
-          e.preventDefault()
-          onClickShowModal(record)
-        }}>edit</a>,
+      dataIndex: 'action',
+      render: (text, record) => <ActionListUserForm onClickShowModal={onClickShowModal} record={record}/>,
     }, 
   ];
   useEffect(() => {
@@ -71,7 +68,7 @@ const ListUserForm = () => {
       setIsLoading(false)
       swal('Sorry!', 'Server error', 'error');
     })
-  }, [])
+  }, [] )
   if (data.length === 0 && isLoading){
     return (
       <div>

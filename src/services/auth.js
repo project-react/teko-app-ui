@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs'; 
 const URL = process.env.REACT_APP_API_URL_USERS;
 const AURL = process.env.REACT_APP_API_URL_ADMIN; 
 
@@ -48,13 +47,24 @@ class Auth {
   }
 
   editInforUserByNickAdmin(data, token) {
-    console.log(token)
     const config = {
       headers: {
         Authorization: token,
       }
     }
-    axios.put(`${AURL}/edituser/`, data, config);
+    return axios.put(`${AURL}/edituser/`, data, config);
+  }
+
+  deleteUserByNickAdmin(dataDelete, token){
+    return axios.delete(
+      `${AURL}/deleteuser/`,
+      {
+        headers: {
+          Authorization: token,
+        }, 
+        data: dataDelete
+      }, 
+    ); 
   }
 
   isAuthenticated(path) {
