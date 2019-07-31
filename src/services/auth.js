@@ -67,6 +67,15 @@ class Auth {
     ); 
   }
 
+  createAccountByNickAdmin(data, token){
+    const config = {
+      headers: {
+        Authorization: token,
+      }
+    }
+    return axios.post(`${AURL}/createuser/`, data, config)
+  }
+
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
       if(path === '/login' || path === '/register' || path === '/resetPassword'){

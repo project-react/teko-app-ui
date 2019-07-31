@@ -31,6 +31,11 @@ const LayoutAdmin = (props) => {
                 <span className="nav-text">List User</span>
                 <Link to="/admin/listuser" />
               </Menu.Item>
+              <Menu.Item key="3">
+                <Icon type="user-add" />
+                <span className="nav-text">Add User</span>
+                <Link to="/admin/adduser" />
+              </Menu.Item>
             </Menu>
             </Sider>
             <Layout style={{ marginLeft: 200 }}>
