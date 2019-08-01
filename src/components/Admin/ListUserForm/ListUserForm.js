@@ -12,6 +12,7 @@ const rowSelection = {
 };
 
 const ListUserForm = () => {
+  document.title = 'List User';
   const [data, setData] = useState([])
   const [editRecordRow, setEditRecordRow] = useState({})
   const [loadInputForm, setloadInputForm] = useState(false)
@@ -41,6 +42,10 @@ const ListUserForm = () => {
       dataIndex: 'is_admin'
     }, 
     {
+      title: 'Is Activate', 
+      dataIndex: 'is_active'
+    }, 
+    {
       title: 'Action',
       dataIndex: 'action',
       render: (text, record) => <ActionListUserForm onClickShowModal={onClickShowModal} record={record}/>,
@@ -52,14 +57,16 @@ const ListUserForm = () => {
       const listUser = res.data;
       const listData = []; 
       for (let i = 0; i < listUser.length; i++){
-        let is_admin = "No"
+        let is_admin = "No", is_active = "No"
         if(listUser[i].is_admin) is_admin = "Yes"
+        if(listUser[i].is_active) is_active = "Yes"
         listData.push({
           key: i,
           name: listUser[i].username,
           email: listUser[i].email,
           update: listUser[i].updated_at,
           is_admin: is_admin, 
+          is_active: is_active
         })
       }
       setData(listData)

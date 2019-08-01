@@ -8,6 +8,7 @@ import { ButtonLogout } from 'components/shared/ButtonLogout'
 const { Header, Content, Footer, Sider } = Layout;
 
 const LayoutAdmin = (props) => {
+  document.title = 'Admin';
   return (
     <Router>
       <Layout>

@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import Auth from 'services/auth';
 const InfoForm = (props) => {
+  document.title = 'Add User';
   const {getFieldDecorator} = props.form;
   const [isLoading, setIsLoading] = useState(false)
   const handleSubmit = (e) => {
@@ -49,6 +50,9 @@ const InfoForm = (props) => {
             });
           }
         })
+      }
+      else{
+        setIsLoading(false)
       }
     })
   }

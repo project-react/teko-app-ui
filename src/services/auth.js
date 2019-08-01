@@ -76,6 +76,15 @@ class Auth {
     return axios.post(`${AURL}/createuser/`, data, config)
   }
 
+  lockAccountByNickAdmin(data, token){
+    const config = {
+      headers: {
+        Authorization: token,
+      }
+    }
+    return axios.put(`${AURL}/lookaccount/`, data, config)
+  }
+
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
       if(path === '/login' || path === '/register' || path === '/resetPassword'){
