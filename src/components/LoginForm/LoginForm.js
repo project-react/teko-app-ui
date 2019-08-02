@@ -38,6 +38,7 @@ export default function LoginForm(props) {
         >
           Login
         </Button> 
+        <div className="g-signin2" data-onsuccess="onSignIn"></div>
         <Grid container>
           <Grid item xs>
             <Link to="/resetPassword" variant="body2" component={RouteLink}>
