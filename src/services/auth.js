@@ -85,6 +85,15 @@ class Auth {
     return axios.put(`${AURL}/lookaccount/`, data, config)
   }
 
+  loginWithGoogle(access_token, data){
+    const config = {
+      headers: {
+        Authorization: access_token,
+      }
+    }
+    return axios.post(`http://127.0.0.1:5000/api/users/google/login`, data, config)
+  }
+
   isAuthenticated(path) {
     if(localStorage.getItem("username") === null) {
       if(path === '/login' || path === '/register' || path === '/resetPassword'){

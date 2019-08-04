@@ -17,6 +17,7 @@ import Auth from 'services/auth';
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {GoogleLoginButton} from 'components/shared/GoogleLoginButton'
 
 export default function LoginForm(props) {
   const classes = MaterialInputForm.useStyles();
@@ -38,7 +39,7 @@ export default function LoginForm(props) {
         >
           Login
         </Button> 
-        <div className="g-signin2" data-onsuccess="onSignIn"></div>
+        <GoogleLoginButton />
         <Grid container>
           <Grid item xs>
             <Link to="/resetPassword" variant="body2" component={RouteLink}>
@@ -180,6 +181,7 @@ export default function LoginForm(props) {
           {ToolHandlingFormChange}
         </form>
         {ToolLoadingFormChange}
+        <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
       </div>
       <Box mt={5}>
         <MaterialInputForm.MadeWithLove />
