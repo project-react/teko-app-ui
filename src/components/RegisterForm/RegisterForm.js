@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { validatorHelper } from 'helpers/validator';
-import Auth from 'services/auth'; 
+import {userAuth} from 'services/auth/User'
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -90,7 +90,7 @@ export default function RegisterForm(props) {
         'username': usernameField.value, 
         'password': passwordField.value
       }
-      Auth.register(data)
+      userAuth.register(data)
       .then(res => {
         swal("Hello, " + usernameField.value, "You can check email: " + emailField.value + " and verify account before: 30 minutes", "success")
         .then(() => {

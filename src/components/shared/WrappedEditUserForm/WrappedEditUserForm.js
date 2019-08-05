@@ -6,7 +6,7 @@ import {
   Button,
   notification, 
 } from 'antd';
-import Auth from 'services/auth';
+import {adminAuth} from 'services/auth/Admin'; 
 const FromSubmitEdit = (props) =>{
   const {oldUser} = props;
   const {getFieldDecorator} = props.form;
@@ -60,7 +60,7 @@ const FromSubmitEdit = (props) =>{
           'new_email': values.email, 
           'is_admin': values.is_admin
         }
-        Auth.editInforUserByNickAdmin(dataRequestEdit, localStorage.getItem('token'))
+        adminAuth.editInforUser(dataRequestEdit, localStorage.getItem('token'))
         .then((res) => {
           notification['success']({
             message: res.data.message,

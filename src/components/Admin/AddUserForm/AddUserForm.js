@@ -6,7 +6,7 @@ import {
   Button,
   notification, 
 } from 'antd';
-import Auth from 'services/auth';
+import {adminAuth} from 'services/auth/Admin'
 const InfoForm = (props) => {
   document.title = 'Add User';
   const {getFieldDecorator} = props.form;
@@ -24,7 +24,7 @@ const InfoForm = (props) => {
           'email': values.email,
           'is_admin': values.is_admin, 
         }
-        Auth.createAccountByNickAdmin(data, localStorage.getItem('token'))
+        adminAuth.createAccount(data, localStorage.getItem('token'))
         .then((res) => {
           setIsLoading(false)
           notification['success']({

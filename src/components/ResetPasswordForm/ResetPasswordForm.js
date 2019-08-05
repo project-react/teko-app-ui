@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { validatorHelper } from 'helpers/validator';
-import Auth  from 'services/auth'; 
+import {userAuth} from 'services/auth/User'; 
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -81,7 +81,7 @@ export default function ResetPasswordForm(props) {
         'username': usernameField.value, 
         'email': emailField.value
       }
-      Auth.resetPassword(data)
+      userAuth.resetPassword(data)
       .then(res => {
         swal("Hello, " + usernameField.value, "We send new password to " + emailField.value + ". You can check", "success")
         .then(() => {

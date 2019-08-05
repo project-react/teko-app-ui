@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Popconfirm, Icon, notification, Modal, Select} from 'antd'
-import Auth from 'services/auth';
+import {adminAuth} from 'services/auth/Admin'
 const { Option } = Select;
 
 const Action = (props) => {
@@ -13,7 +13,7 @@ const Action = (props) => {
       'username': record.name,
       'email': record.email  
     }
-    Auth.deleteUserByNickAdmin(dataReqDelete, localStorage.getItem('token'))
+    adminAuth.deleteUser(dataReqDelete, localStorage.getItem('token'))
     .then((res) => {
       notification['success']({
         message: res.data.message,
@@ -45,7 +45,7 @@ const Action = (props) => {
       'email' : record.email, 
       'look_time': sizeBlockSelect
     }
-    Auth.lockAccountByNickAdmin(dataBlockReq, localStorage.getItem('token'))
+    adminAuth.lockAccount(dataBlockReq, localStorage.getItem('token'))
     .then((res) => {
       notification['success']({
         message: res.data.message,

@@ -10,11 +10,11 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { MaterialInputForm } from 'components/shared/MaterialInputForm';
-import { InputText } from 'components/shared/InputText';
-import { validatorHelper } from 'helpers/validator';
-import Auth from 'services/auth';
-import { Link as RouteLink } from 'react-router-dom';
+import {MaterialInputForm} from 'components/shared/MaterialInputForm';
+import {InputText} from 'components/shared/InputText';
+import {validatorHelper} from 'helpers/validator';
+import {userAuth} from 'services/auth/User'
+import {Link as RouteLink} from 'react-router-dom';
 import swal from 'sweetalert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {GoogleLoginButton} from 'components/shared/GoogleLoginButton'
@@ -39,7 +39,7 @@ export default function LoginForm(props) {
         >
           Login
         </Button> 
-        <GoogleLoginButton />
+        <GoogleLoginButton {...props} setLoadingField={setLoadingField}/>
         <Grid container>
           <Grid item xs>
             <Link to="/resetPassword" variant="body2" component={RouteLink}>
@@ -56,7 +56,6 @@ export default function LoginForm(props) {
       </div>
     )
   }
-
   const ToolLoadingForm = () => {
     return (
       <Box mt={5}>
@@ -64,27 +63,21 @@ export default function LoginForm(props) {
       </Box>
     )
   }
-
   let ToolHandlingFormChange = ''; 
-
-  let ToolLoadingFormChange = ""; 
-
+  let ToolLoadingFormChange = ''; 
   const [usernameField, setUsernameField] = useState({
     value: '',
     error: '',
     isError: false,
   });
-
   const [passwordField, setPasswordField] = useState({
     value: '',
     error: '',
     isError: false,
   });
-
   const [loadingField, setLoadingField] = useState({
     isLoading : false, 
   })  
-
   const submit = e => {
     e.preventDefault();
     let validatorsField = ['username', 'password'];
@@ -96,45 +89,43 @@ export default function LoginForm(props) {
         username: usernameField.value,
         password: passwordField.value,
       };
-      Auth.login(data)
-        .then(res => {
-          let expiredTime = Date.now() + 1800000;
-          swal(
-            'Hello, ' + usernameField.value,
-            'Auto Logout before 30 minutes',
-            'success',
-          ).then(() => {
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('username', usernameField.value);
-            localStorage.setItem('time', expiredTime);
-            if(res.data.isAdmin){
-              props.history.push('/admin')
-            } else {
-              props.history.push('/home');
-            }
-          });
-        })
-        .catch(err => {
-          if(err.response){
-            swal('Sorry!', err.response.data.message, 'error');
-            setLoadingField({isLoading: false});
-          }
-          else if(err.request){
-            props.history.push('/servererror');
+      userAuth.login(data)
+      .then(res => {
+        let expiredTime = Date.now() + 1800000;
+        swal(
+          'Hello, ' + usernameField.value,
+          'Auto Logout before 30 minutes',
+          'success',
+        ).then(() => {
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('username', usernameField.value);
+          localStorage.setItem('time', expiredTime);
+          if(res.data.isAdmin){
+            props.history.push('/admin')
+          } else {
+            props.history.push('/home');
           }
         });
+      })
+      .catch(err => {
+        if(err.response){
+          swal('Sorry!', err.response.data.message, 'error');
+          setLoadingField({isLoading: false});
+        }
+        else if(err.request){
+          props.history.push('/servererror');
+        }
+      });
     } else {
       swal('Sorry!', 'wrong input format', 'error');
     }
   };
-
   if(loadingField.isLoading){
     ToolLoadingFormChange = ToolLoadingForm(); 
   } 
   else {
     ToolHandlingFormChange = ToolHandlingForm(); 
   }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />

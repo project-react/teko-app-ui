@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react' 
 import {Modal ,Spin, Table} from 'antd';
-import Auth from 'services/auth';
+import {adminAuth} from 'services/auth/Admin' 
 import swal from 'sweetalert';
 import {WrappedEditUserForm} from 'components/shared/WrappedEditUserForm'; 
 import {ActionListUserForm} from 'components/shared/ActionListUserForm'; 
@@ -52,7 +52,7 @@ const ListUserForm = () => {
     }, 
   ];
   useEffect(() => {
-    Auth.adminLoadListUser(localStorage.getItem('token'))
+    adminAuth.loadListUser(localStorage.getItem('token'))
     .then((res) => {
       const listUser = res.data;
       const listData = []; 

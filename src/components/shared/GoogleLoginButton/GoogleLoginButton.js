@@ -1,22 +1,41 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
-import Auth from 'services/auth';
+import {userAuth} from 'services/auth/User'; 
 import swal from 'sweetalert';
 
-const Button = () => {
+const Button = (props) => {
+  const{setLoadingField} = props;
   const responseGoogle = (response) => {
-    console.log(response)
-    console.log(response.Zi.access_token);
-    console.log(response.profileObj.email);
     const data = {
      'email': response.profileObj.email
     }
-    Auth.loginWithGoogle(response.Zi.access_token, data)
+    const access_token = response.Zi.access_token; 
+    userAuth.loginWithGoogle(access_token, data)
     .then((res) => {
-      console.log(res)
+      const expiredTime = Date.now() + 1800000;
+      swal(
+        'Hello, ' + res.data.username,
+        'Auto Logout before 30 minutes',
+        'success',
+      ).then(() => {
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('username', res.data.username);
+        localStorage.setItem('time', expiredTime);
+        if(res.data.isAdmin){
+          props.history.push('/admin')
+        } else {
+          props.history.push('/home');
+        }
+      });
     })
     .catch((err) => {
-      console.log(err)
+      if(err.response){
+        swal('Sorry!', err.response.data.message, 'error');
+        setLoadingField({isLoading: false});
+      }
+      else if(err.request){
+        props.history.push('/servererror');
+      }
     })
   }
   

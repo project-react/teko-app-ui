@@ -1,6 +1,6 @@
 import React from 'react'; 
 import "antd/dist/antd.css";
-import { Layout, Menu , Icon, Breadcrumb} from 'antd';
+import {Layout, Menu , Icon, Breadcrumb} from 'antd';
 import AdminRoute from 'routers/AdminRoute'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
 import { ButtonLogout } from 'components/shared/ButtonLogout'

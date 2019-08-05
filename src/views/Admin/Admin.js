@@ -1,11 +1,11 @@
 import React, {useState} from 'react'; 
 import {LayoutAdmin} from 'layouts/LayoutAdmin';
-import Auth from 'services/auth'; 
+import {adminAuth} from 'services/auth/Admin'
 
 const Admin = (props) => {
   const [isAdmin, setIsAdmin] = useState(false)
   useState(() => {
-    Auth.verifyAdmin(localStorage.getItem('token'))
+    adminAuth.verify(localStorage.getItem('token'))
     .then(() => {
       setIsAdmin(true)
     })

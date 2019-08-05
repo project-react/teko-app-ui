@@ -1,13 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from "react-router-dom";
-import Auth from 'services/auth'; 
+// import Auth from 'services/auth'; 
+import {userAuth} from 'services/auth/User'
 
 export const PrivateRoute = ({
   path, 
   component, 
   ...rest
 }) => {
-  if(Auth.isAuthenticated(path)){
+  if(userAuth.isAuthenticated(path)){
     return(
       <Route path={path} component={component}/>
     ); 

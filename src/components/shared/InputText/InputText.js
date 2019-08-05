@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { validatorHelper } from 'helpers/validator';
+import {validatorHelper} from 'helpers/validator';
 
 const InputText = props => {
   const { textField, setChange } = props; 

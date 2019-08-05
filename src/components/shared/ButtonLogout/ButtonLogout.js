@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {Popconfirm, Button} from 'antd';
-import Auth from 'services/auth';
+import {userAuth} from 'services/auth/User'
 import swal from 'sweetalert';
 
 const ButtonLogout = (props) => {
   const[isLoading, setIsLoading] = useState(false)
   const enterIconLoading = () => {
     setIsLoading(true)
-    Auth.logout(localStorage.getItem('token'))
+    userAuth.logout(localStorage.getItem('token'))
     .then((res) => {
       swal("Good bye, ", res.data.message, "success")
       .then(() =>{

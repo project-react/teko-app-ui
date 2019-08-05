@@ -11,7 +11,7 @@ import { MaterialInputForm } from 'components/shared/MaterialInputForm';
 import { InputText } from 'components/shared/InputText';
 import { validatorHelper } from 'helpers/validator';
 import swal from 'sweetalert';
-import Auth from 'services/auth';
+import {userAuth} from 'services/auth/User'; 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function ChangePasswordForm(props) {
@@ -73,7 +73,7 @@ export default function ChangePasswordForm(props) {
         'password' : passwordField.value, 
         'newpassword' : newpasswordField.value, 
       }
-      Auth.changePassword(data)
+      userAuth.changePassword(data)
       .then(res => {
         swal("Change Password Success", "success")
         .then(() => {

@@ -6,7 +6,8 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { Link as RouteLink } from 'react-router-dom';
 import swal from 'sweetalert';
-import Auth from 'services/auth';
+// import Auth from 'services/auth';
+import {userAuth} from 'services/auth/User'
 import { Material } from 'components/shared/Material'; 
 
 
@@ -21,7 +22,7 @@ const LayoutUser = (props) => {
         icon: "warning",
         dangerMode: true, 
       }).then(() => {
-        Auth.logout(localStorage.getItem('token'))
+        userAuth.logout(localStorage.getItem('token'))
         .then((res) =>{
           swal("Good bye, ", res.data.message, "success")
           .then(() =>{
@@ -48,7 +49,7 @@ const LayoutUser = (props) => {
       dangerMode: true, 
     }).then((ok) => {
         if(ok){
-          Auth.logout(localStorage.getItem('token'))
+          userAuth.logout(localStorage.getItem('token'))
           .then((res) => {
             swal("Good bye, ", res.data.message, "success")
             .then(() =>{
