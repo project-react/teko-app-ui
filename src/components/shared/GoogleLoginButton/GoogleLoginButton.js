@@ -1,6 +1,6 @@
 import React from 'react'
 import GoogleLogin from 'react-google-login';
-import {userAuth} from 'services/auth/User'; 
+import {googleAuth} from 'services/auth/Google'; 
 import swal from 'sweetalert';
 
 const Button = (props) => {
@@ -10,7 +10,7 @@ const Button = (props) => {
      'email': response.profileObj.email
     }
     const access_token = response.Zi.access_token; 
-    userAuth.loginWithGoogle(access_token, data)
+    googleAuth.login(access_token, data)
     .then((res) => {
       const expiredTime = Date.now() + 1800000;
       swal(

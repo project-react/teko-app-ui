@@ -26,15 +26,6 @@ const resetPassword = (data) => {
   return axios.post(`${URL}/resetPassword/`, data); 
 }
 
-const loginWithGoogle = (access_token, data) => {
-  const config = {
-    headers: {
-      Authorization: access_token,
-    }
-  }
-  return axios.post(`${URL}/google/login`, data, config)
-}
-
 const isAuthenticated = (path) => {
   if(localStorage.getItem("username") === null) {
     if(path === '/login' || path === '/register' || path === '/resetPassword'){
@@ -60,6 +51,5 @@ export default {
   logout, 
   changePassword, 
   resetPassword, 
-  loginWithGoogle, 
   isAuthenticated, 
 }

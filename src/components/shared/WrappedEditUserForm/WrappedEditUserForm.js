@@ -55,15 +55,15 @@ const FromSubmitEdit = (props) =>{
         } 
         else if (oldUser.is_admin === "Yes") {values.is_admin = true}
         const dataRequestEdit = {
-          'old_username': oldUser.name, 
-          'new_username': values.username, 
-          'new_email': values.email, 
-          'is_admin': values.is_admin
+            "user_edited_id": oldUser.key,
+            "new_username": values.username,
+            "new_email": values.email,
+            "new_is_admin": values.is_admin
         }
         adminAuth.editInforUser(dataRequestEdit, localStorage.getItem('token'))
         .then((res) => {
           notification['success']({
-            message: res.data.message,
+            message: res.data.msg,
             description:
               'success',
           });

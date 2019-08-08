@@ -52,7 +52,7 @@ const ListUserForm = () => {
     }, 
   ];
   useEffect(() => {
-    adminAuth.loadListUser(localStorage.getItem('token'))
+      adminAuth.loadListUser(localStorage.getItem('token'))
     .then((res) => {
       const listUser = res.data;
       const listData = []; 
@@ -61,7 +61,7 @@ const ListUserForm = () => {
         if(listUser[i].is_admin) is_admin = "Yes"
         if(listUser[i].is_active) is_active = "Yes"
         listData.push({
-          key: i,
+          key: listUser[i].user_id,
           name: listUser[i].username,
           email: listUser[i].email,
           update: listUser[i].updated_at,

@@ -7,7 +7,7 @@ const loadListUser = (token) => {
       Authorization: token
     }
   }
-  return axios.get(`${AURL}/getlistuser/`, data); 
+  return axios.get(`${AURL}/getListUser/`, data); 
 }
 
 const verify = (token) => {
@@ -25,12 +25,12 @@ const editInforUser = (data, token) => {
       Authorization: token,
     }
   }
-  return axios.put(`${AURL}/edituser/`, data, config);
+  return axios.put(`${AURL}/editUser/`, data, config);
 }
 
 const deleteUser = (dataDelete, token) => { 
   return axios.delete(
-    `${AURL}/deleteuser/`,
+    `${AURL}/deleteUser/`,
     {
       headers: {
         Authorization: token,
@@ -46,7 +46,7 @@ const createAccount = (data, token) => {
       Authorization: token,
     }
   }
-  return axios.post(`${AURL}/createuser/`, data, config)
+  return axios.post(`${AURL}/createUser/`, data, config)
 }
 
 const lockAccount = (data, token) => {
@@ -55,7 +55,7 @@ const lockAccount = (data, token) => {
       Authorization: token,
     }
   }
-  return axios.put(`${AURL}/lookaccount/`, data, config)
+  return axios.put(`${AURL}/lookAccount/`, data, config)
 }
 
 export default {

@@ -4,19 +4,19 @@ import {adminAuth} from 'services/auth/Admin'
 const { Option } = Select;
 
 const Action = (props) => {
+  console.log(props)
   const{record} = props;
   const{onClickShowModal} = props;
   const[loadBlockModal, setLoadBlockModal] = useState(false)
-  const[sizeBlockSelect, setSizeBlockSelect] = useState(1)
+  const[sizeBlockSelect, setSizeBlockSelect] = useState(0)
   const onConfirmDelete = () => {
     const dataReqDelete = {
-      'username': record.name,
-      'email': record.email  
+      'user_id': record.key, 
     }
     adminAuth.deleteUser(dataReqDelete, localStorage.getItem('token'))
     .then((res) => {
       notification['success']({
-        message: res.data.message,
+        message: res.data.msg,
         description:
           'success',
       });
@@ -41,14 +41,13 @@ const Action = (props) => {
   const onConfirmlock = () => {
     console.log(sizeBlockSelect)
     const dataBlockReq = {
-      'username': record.name, 
-      'email' : record.email, 
-      'look_time': sizeBlockSelect
+      'user_id': record.key, 
+      'lock_time': sizeBlockSelect
     }
     adminAuth.lockAccount(dataBlockReq, localStorage.getItem('token'))
     .then((res) => {
       notification['success']({
-        message: res.data.message,
+        message: res.data.msg,
         description:
           'success',
       });
@@ -87,12 +86,12 @@ const Action = (props) => {
           onOk={onConfirmlock}
           onCancel={() => {setLoadBlockModal(false)}}
         >
-          <Select defaultValue="0" style={{ width: 200 }} 
+          <Select defaultValue="Un lock" style={{ width: 200 }} 
             onChange={(value) => {
               setSizeBlockSelect(value)
             }}
           >
-            <Option value="0">0</Option>
+            <Option value="0">Un lock</Option>
             <Option value="1">1</Option>
             <Option value="2">2</Option>
             <Option value="3">3</Option>

@@ -28,7 +28,7 @@ const InfoForm = (props) => {
         .then((res) => {
           setIsLoading(false)
           notification['success']({
-            message: res.data.message,
+            message: res.data.msg,
             description:
               'success',
           });
