@@ -41,16 +41,16 @@ const arrayInputOutputUsername = [
   }
 ]
 
-// describe('test valid input username', () => {
-//   arrayInputOutputUsername.forEach(e => {
-//     test(`test for username ${e.input}`, () => {
+describe('test valid input username', () => {
+  arrayInputOutputUsername.forEach(e => {
+    test(`test for username ${e.input}`, () => {
   
-//       validatorHelper.resetValidators(); 
-//       validatorHelper.updateValidation('username', e.input, validatorHelper.validators); 
-//       validatorHelper.displayValidationErrors('username', validatorHelper.validators); 
-//       expect(
-//         validatorHelper.isFormValid(validatorHelper.validators, ['username'])
-//       ).toBe(e.output); 
-//     })
-//   })
-// });
+      validatorHelper.resetValidators(); 
+      validatorHelper.updateValidation('username', e.input, validatorHelper.validators); 
+      validatorHelper.displayValidationErrors('username', validatorHelper.validators); 
+      expect(
+        validatorHelper.isFormValid(validatorHelper.validators, ['username'])
+      ).toBe(e.output); 
+    })
+  })
+});
